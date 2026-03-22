@@ -15,6 +15,144 @@
 [![Vision](https://img.shields.io/badge/Vision-Abe-silver?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt)
 [![Status](https://img.shields.io/badge/Status-Phase%201%20In%20Progress-orange?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt/inCybe)
 [![Roadmap](https://img.shields.io/badge/Roadmap-v1.1-blue?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt/inCybe)
+[![British English](https://img.shields.io/badge/Lang-British%20English-white?style=flat-square&labelColor=0a0a0a)](.)
+
+> *A fully local, privacy-preserving knowledge engine that understands, organises, and evolves your personal information.*
+
+</div>
+
+---
+
+## What is inCybe?
+
+inCybe is a long-term project to build an **AI-native OS layer** — one that understands meaning, not just filenames. It begins with connecting a local LLM to your Obsidian vault and evolves, phase by phase, into a system that organises your files, surfaces hidden connections, and ultimately runs as an intelligent layer beneath everything you do.
+
+Built and maintained by **Giblets Creations** with a mobile-first, privacy-first philosophy.
+
+**No cloud required. No data leaves your device. No exceptions.**
+
+---
+
+## Core Principles
+
+| Principle | What it means |
+|-----------|---------------|
+| 🔒 **Privacy by default** | 100% local LLM via Ollama. Cloud providers are opt-in only. |
+| 🧱 **Modular architecture** | Every component is independently deployable. |
+| ⚡ **Simplicity first** | Working prototypes before complexity. Always. |
+| 🛡️ **Safe by design** | No destructive actions without explicit user confirmation. |
+| 🇬🇧 **British English** | Throughout. Non-negotiable. |
+
+---
+
+## Tech Stack
+
+> Every choice has prior art in CCE, Forge HQ, BuddAI, or Legion. Nothing speculative.
+
+| Layer | Choice | Why |
+|-------|--------|-----|
+| **LLM (local)** | Ollama — Llama 3 / Mistral / Phi-3 | Privacy-first. Free. Runs on-device. |
+| **LLM (remote)** | Claude / OpenAI / DeepSeek | Opt-in via env var. Routed through Legion. |
+| **Orchestration** | Legion *(Giblets Creations)* | Multi-LLM routing via Semantic Capsule Protocol (SCP). |
+| **Embeddings** | Ollama `nomic-embed-text` | Local. Free. No data leaves device. |
+| **Vector Store** | Supabase pgvector | Already in stack. Postgres-native. Proven. |
+| **Runtime** | Node.js | Builder's native environment. |
+| **Process Manager** | PM2 | Proven in CCE Crypto, Forge HQ, CCE-Cap deployments. |
+| **Frontend** | Vite PWA | Installable. Consistent with Forge HQ dashboard. |
+| **Mobile Target** | Samsung S24 Ultra / Termux | Primary dev device. All deployments validated here. |
+| **Notifications** | Telegram bot | Proven in CCE. Digests, errors, index complete. |
+| **File Semantics** | SCP *(Giblets Creations)* | JSON sidecars. Validated across 5 AI systems + 190+ repos. |
+| **Storage (Phase 1–2)** | Obsidian vault (Markdown) | Starting point. Phases 3+ expand to all file types. |
+| **Safety Model** | Confirm-before-write + atomic ops | No exceptions in Phases 1–3. |
+| **AI Assistant** | BuddAI *(Giblets Creations)* | Conversational layer. Phase 4 integration target. |
+| **Dashboard** | Forge HQ PWA | Master dashboard. Phase 4 inCybe panel target. |
+
+---
+
+## Roadmap
+
+> Phases 1 and 2 are sequential. Phases 3 and 4 are modular and can develop in parallel.
+
+| Phase | Title | Status | Document |
+|-------|-------|--------|----------|
+| **1** | LLM + Obsidian Integration | ⚙️ In Progress | [PHASE-1.md](./PHASE-1.md) |
+| **2** | AI-Assisted Note Management | 📋 Planned | [PHASE-2.md](./PHASE-2.md) |
+| **3** | Intelligent File Manager | 📝 Planning | [PHASE-3.md](./PHASE-3.md) |
+| **4** | inCybe OS (AI-native layer) | 🌐 Vision | [PHASE-4.md](./PHASE-4.md) |
+
+Each phase document contains: full milestone breakdowns, build task checklists, test criteria, and phase exit confirmations.
+
+---
+
+## Risk Register
+
+| Risk | Likelihood | Mitigation |
+|------|-----------|------------|
+| Embedding costs spiral | 🟢 Low | Incremental sync + `nomic-embed-text` is free |
+| Vault corruption from bad write | 🟢 Low | Atomic writes + version history + rollback command |
+| LLM hallucination in answers | 🟡 Medium | Vault-grounded prompts + citations always required |
+| Ollama model quality gap | 🟡 Medium | Fallback chain to Claude/OpenAI via Legion |
+| Scope creep into Phase 4 | 🔴 High | Phase exit criteria enforce discipline; phases are sequential |
+| Supabase free tier limits | 🟡 Medium | Monitor usage; self-host pgvector via Termux if needed |
+| Termux environment breaks | 🟢 Low | PM2 auto-restart; mirrors proven CCE & Forge HQ setup |
+
+---
+
+## Glossary
+
+| Term | Definition |
+|------|-----------|
+| **SCP** | Semantic Capsule Protocol — Giblets Creations standard. JSON sidecar files making any file self-documenting for AI. |
+| **RAG** | Retrieval-Augmented Generation — grounding LLM answers in real source documents. |
+| **pgvector** | Postgres extension for storing and querying vector embeddings. |
+| **Chunk** | A segment of a document used for embedding (~300–500 tokens). |
+| **K** | Number of top results returned by vector search (default 5). |
+| **Wikilink** | Obsidian-style internal link: `[[Note Name]]`. |
+| **Ollama** | Local LLM runner. Enables fully private, on-device inference. |
+| **Legion** | Giblets Creations multi-LLM orchestration system (Claude, Gemini, DeepSeek, Ollama, OpenAI). |
+| **Forge HQ** | Giblets Creations master dashboard PWA. Dark chrome aesthetic, S24 Ultra home screen. |
+| **BuddAI** | Giblets Creations AI assistant platform. 279+ tests, ESP32 validated, `/teach` `/wrong` `/why` interface. |
+| **PM2** | Node.js process manager. Used for all Giblets server deployments. |
+| **Termux** | Android terminal emulator. Primary deployment environment on S24 Ultra. |
+
+---
+
+## Collaboration Guidelines
+
+- **Simplicity is key** — working prototypes before architecture
+- **Start small** — working prototypes first, always
+- **Safety first** — no destructive actions without confirmation
+- **Version control everything** — all AI-generated changes tracked
+- **British English** — for all text, throughout
+- **Commit often, merge frequently**
+- **Boy Scout Rule** — leave it better than you found it
+- **Leverage existing Giblets Creations tooling** before building new
+
+---
+
+<div align="center">
+
+**inCybe · Giblets Creations · Roadmap v1.1 · March 2026**
+
+*"I wanted it. So I forged it. Now forge yours."*
+
+</div><div align="center">
+
+```
+██╗███╗   ██╗ ██████╗██╗   ██╗██████╗ ███████╗
+██║████╗  ██║██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝
+██║██╔██╗ ██║██║      ╚████╔╝ ██████╔╝█████╗  
+██║██║╚██╗██║██║       ╚██╔╝  ██╔══██╗██╔══╝  
+██║██║ ╚████║╚██████╗   ██║   ██████╔╝███████╗
+╚═╝╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝
+```
+
+**Making tech simple.**
+
+[![Builder](https://img.shields.io/badge/Builder-Giblets%20Creations-gold?style=flat-square&labelColor=0a0a0a)](https://github.com/JamesTheGiblet)
+[![Vision](https://img.shields.io/badge/Vision-Abe-silver?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt)
+[![Status](https://img.shields.io/badge/Status-Phase%201%20In%20Progress-orange?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt/inCybe)
+[![Roadmap](https://img.shields.io/badge/Roadmap-v1.1-blue?style=flat-square&labelColor=0a0a0a)](https://github.com/abeatt/inCybe)
 [![British English](https://img.shields.io/badge/Lang-British%20English-white?style=flat-square&labelColor=0a0a0a&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzMCI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMDEyMTY5Ii8+PC9zdmc+)](.)
 
 > *A fully local, privacy-preserving knowledge engine that understands, organises, and evolves your personal information.*
