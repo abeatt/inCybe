@@ -14,6 +14,8 @@ All notable changes to the **inCybe** project will be documented in this file.
 - **Vault Reader**: Implemented `chokidar` file watcher for real-time vault updates.
 - **Scaffold**: Initialised Monorepo structure (`core`, `obsidian`, `interfaces`).
 - **Scaffold**: Configured PM2 ecosystem (`ecosystem.config.js`).
+- **Scripts**: Added `indexer.js` for full vault indexing loop (Scan -> Chunk -> Embed -> Store).
+- **Scripts**: Added `search.js` CLI tool for verifying semantic search results.
 
 ### Changed
 
@@ -23,3 +25,4 @@ All notable changes to the **inCybe** project will be documented in this file.
 ### Fixed
 
 - **Environment**: Resolved PM2 path resolution issues in Windows PowerShell.
+- **Core**: Fixed circular dependency in `VaultReader` and corrected module export structure.
