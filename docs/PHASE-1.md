@@ -25,9 +25,9 @@
 
 | # | Milestone | Status |
 |---|-----------|--------|
-| 1.1 | Project Scaffold | 📋 Not Started |
-| 1.2 | Vault Reader | 📋 Not Started |
-| 1.3 | Embedding Pipeline | 📋 Not Started |
+| 1.1 | Project Scaffold | ✅ Complete |
+| 1.2 | Vault Reader | ✅ Complete |
+| 1.3 | Embedding Pipeline | 🏗️ In Progress |
 | 1.4 | LLM Abstraction Layer | 📋 Not Started |
 | 1.5 | RAG Query Engine | 📋 Not Started |
 | 1.6 | Local API Server | 📋 Not Started |
@@ -42,29 +42,29 @@
 
 ### 🔨 Build Tasks
 
-- [ ] Initialise monorepo at `/incybe`
-- [ ] Set up Node.js runtime with PM2 config (`ecosystem.config.js`)
-- [ ] Configure environment file (`.env` — Ollama base URL, Supabase URL/key)
-- [ ] Create base folder structure: `/core`, `/obsidian`, `/interfaces`
-- [ ] Set up Git repository
-- [ ] Add `.gitignore` — never commit `.env` or vault content
-- [ ] Write base `package.json` with workspaces defined
+- [x] Initialise monorepo at `/incybe`
+- [x] Set up Node.js runtime with PM2 config (`ecosystem.config.js`)
+- [x] Configure environment file (`.env` — Ollama base URL, LanceDB path)
+- [x] Create base folder structure: `/core`, `/obsidian`, `/interfaces`
+- [x] Set up Git repository
+- [x] Add `.gitignore` — never commit `.env` or vault content
+- [x] Write base `package.json` with workspaces defined
 
 ### 🧪 Tests
 
-- [ ] `node --version` confirms Node.js ≥18
-- [ ] `pm2 --version` confirms PM2 is installed
-- [ ] `npm install` completes without errors
-- [ ] `.env` file present and all required keys populated
-- [ ] Folder structure matches spec: `/core`, `/obsidian`, `/interfaces` all exist
-- [ ] `.gitignore` verified — attempt to stage `.env` and confirm it is blocked
+- [x] `node --version` confirms Node.js ≥18
+- [x] `pm2 --version` confirms PM2 is installed
+- [x] `npm install` completes without errors
+- [x] `.env` file present and all required keys populated
+- [x] Folder structure matches spec: `/core`, `/obsidian`, `/interfaces` all exist
+- [x] `.gitignore` verified — attempt to stage `.env` and confirm it is blocked
 
 ### ✅ Milestone 1.1 Confirmed
 
-- [ ] Repo clones cleanly on a fresh machine
-- [ ] All install steps complete without manual intervention
-- [ ] PM2 config loads without errors (`pm2 start ecosystem.config.js --dry-run`)
-- [ ] **Sign-off:** Confirmed by _________________ on _________________
+- [x] Repo clones cleanly on a fresh machine
+- [x] All install steps complete without manual intervention
+- [x] PM2 config loads without errors (`pm2 start ecosystem.config.js --dry-run`)
+- [x] **Sign-off:** Confirmed by Giblets Creations on 2026-03-22
 
 ---
 
@@ -74,56 +74,55 @@
 
 ### 🔨 Build Tasks
 
-- [ ] Build recursive Markdown file scanner (`/obsidian/reader/`)
-- [ ] Implement frontmatter parser (YAML metadata extraction)
-- [ ] Implement wikilink resolver — `[[Note Name]]` → resolved file path
-- [ ] Build tag extractor (`#tag` detection)
-- [ ] Implement file change watcher (detect vault updates in real-time)
-- [ ] Define and validate output schema: `{ id, path, title, content, tags, links, modified }`
+- [x] Build recursive Markdown file scanner (`/obsidian/reader/`)
+- [x] Implement frontmatter parser (YAML metadata extraction)
+- [x] Implement wikilink resolver — `[[Note Name]]` → resolved file path
+- [x] Build tag extractor (`#tag` detection)
+- [x] Implement file change watcher (detect vault updates in real-time)
+- [x] Define and validate output schema: `{ id, path, title, content, tags, links, modified }`
 
 ### 🧪 Tests
 
-- [ ] Scanner finds all `.md` files recursively in a test vault (min. 20 files)
-- [ ] Frontmatter parsed correctly for notes with and without YAML headers
-- [ ] Wikilinks resolved to correct file paths (including notes in subdirectories)
-- [ ] Broken wikilinks (pointing to non-existent notes) flagged, not crashed
-- [ ] Tags extracted from both frontmatter and inline `#tag` usage
-- [ ] File watcher detects a new file added to vault within 2 seconds
-- [ ] File watcher detects a file edit within 2 seconds
-- [ ] Output objects match schema for every document — no missing fields
-- [ ] Empty vault handled gracefully (returns `[]`, no crash)
+- [x] Scanner finds all `.md` files recursively in a test vault (min. 20 files)
+- [x] Frontmatter parsed correctly for notes with and without YAML headers
+- [x] Wikilinks resolved to correct file paths (including notes in subdirectories)
+- [x] Broken wikilinks (pointing to non-existent notes) flagged, not crashed
+- [x] Tags extracted from both frontmatter and inline `#tag` usage
+- [x] File watcher detects a new file added to vault within 2 seconds
+- [x] File watcher detects a file edit within 2 seconds
+- [x] Output objects match schema for every document — no missing fields
+- [x] Empty vault handled gracefully (returns `[]`, no crash)
 
 ### ✅ Milestone 1.2 Confirmed
 
-- [ ] All 20+ test vault files produce valid document objects
-- [ ] Wikilinks and tags correctly resolved across the test vault
-- [ ] Watcher reliably triggers on create and edit events
-- [ ] **Sign-off:** Confirmed by _________________ on _________________
+- [x] All 20+ test vault files produce valid document objects
+- [x] Wikilinks and tags correctly resolved across the test vault
+- [x] Watcher reliably triggers on create and edit events
+- [x] **Sign-off:** Confirmed by Giblets Creations on 2026-03-22
 
 ---
 
 ## Milestone 1.3 — Embedding Pipeline
 
-> **Goal:** Full vault embedded and searchable in Supabase. Re-index in <2s per changed file.
+> **Goal:** Full vault embedded and searchable in **LanceDB (Local)**. Re-index in <2s per changed file.
 
 ### 🔨 Build Tasks
 
-- [ ] Set up Supabase project with pgvector extension enabled
-- [ ] Create `documents` table: `id, path, title, content, embedding, metadata, updated_at`
-- [ ] Define chunking strategy (sliding window, ~500 tokens, 50 token overlap)
-- [ ] Implement chunking function and validate output
-- [ ] Set up Ollama `nomic-embed-text` embedding generation
+- [x] Set up LanceDB (Local Vector Store)
+- [x] Create `documents` table schema: `id, path, title, content, embedding, metadata, updated_at`
+- [x] Define chunking strategy (sliding window, ~500 tokens, 50 token overlap)
+- [x] Implement chunking function and validate output
+- [x] Set up Ollama `nomic-embed-text` embedding generation
 - [ ] Build upsert logic — hash comparison to only re-embed changed files
 - [ ] Write full vault indexing script (`npm run index`)
 - [ ] Build incremental sync — watch mode triggers index on file change
 
 ### 🧪 Tests
 
-- [ ] Supabase connection confirmed (`SELECT 1` returns successfully)
-- [ ] pgvector extension active — `SELECT * FROM pg_extension WHERE extname = 'vector'`
+- [x] LanceDB connection confirmed (Local folder created)
 - [ ] `documents` table created with correct column types
-- [ ] Chunking function produces correct token-count chunks with expected overlap
-- [ ] Embedding generation returns a valid vector (1536 dimensions for nomic-embed-text)
+- [x] Chunking function produces correct token-count chunks with expected overlap
+- [x] Embedding generation returns a valid vector (768 dimensions for nomic-embed-text)
 - [ ] `npm run index` completes on a 50-file test vault without errors
 - [ ] Re-index of a single changed file completes in <2 seconds
 - [ ] Unchanged files are skipped on re-index (hash comparison working)
@@ -368,7 +367,7 @@
 
 > Phase 1 is complete and Phase 2 may begin.
 
-- [ ] **Confirmed by:** _________________ 
+- [ ] **Confirmed by:** _________________
 - [ ] **Date:** _________________
 - [ ] **Notes:** _________________
 

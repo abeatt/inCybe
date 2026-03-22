@@ -1,0 +1,17 @@
+{
+  "name": "incybe",
+  "version": "0.1.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "index": "node indexer.js"
+  },
+  "dependencies": {
+    "@lancedb/lancedb": "^0.4.0",
+    "chokidar": "^3.5.3",
+    "dotenv": "^16.4.5",
+    "glob": "^10.3.10",
+    "gray-matter": "^4.0.3"
+  }
+}
