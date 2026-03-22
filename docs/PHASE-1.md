@@ -114,20 +114,20 @@
 - [x] Implement chunking function and validate output
 - [x] Set up Ollama `nomic-embed-text` embedding generation
 - [ ] Build upsert logic — hash comparison to only re-embed changed files
-- [ ] Write full vault indexing script (`npm run index`)
+- [x] Write full vault indexing script (`npm run index`)
 - [ ] Build incremental sync — watch mode triggers index on file change
 
 ### 🧪 Tests
 
 - [x] LanceDB connection confirmed (Local folder created)
-- [ ] `documents` table created with correct column types
+- [x] `documents` table created with correct column types
 - [x] Chunking function produces correct token-count chunks with expected overlap
 - [x] Embedding generation returns a valid vector (768 dimensions for nomic-embed-text)
-- [ ] `npm run index` completes on a 50-file test vault without errors
+- [x] `npm run index` completes on a 50-file test vault without errors
 - [ ] Re-index of a single changed file completes in <2 seconds
 - [ ] Unchanged files are skipped on re-index (hash comparison working)
 - [ ] Deleted vault files are removed from the `documents` table on next sync
-- [ ] Query against embedded vault returns semantically relevant results
+- [x] Query against embedded vault returns semantically relevant results
 
 ### ✅ Milestone 1.3 Confirmed
 
