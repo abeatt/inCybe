@@ -4,7 +4,7 @@
 
 ## Roadmap
 
-- [**Phase 1: LLM + Obsidian Integration**](./PHASE-1.md)
+- [**Phase 1: LLM + Obsidian Integration**](https://github.com/abeatt/inCybe/blob/main/docs/PHASE-1.md)
   - *Status: In Progress*
 - [**Phase 2: AI-Assisted Note Management**](./PHASE-2.md)
 - [**Phase 3: Intelligent File Manager**](./PHASE-3.md)
