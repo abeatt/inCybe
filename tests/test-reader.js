@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import { VaultReader } from './index.js';
+const dotenv = require('dotenv');
+const { VaultReader } = require('../interfaces/server/index');
 
 // Load environment variables (for VAULT_PATH)
 dotenv.config();

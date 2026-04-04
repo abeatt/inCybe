@@ -1,5 +1,6 @@
-import dotenv from 'dotenv';
-import { VaultReader } from './obsidian/reader/index.js';
+const dotenv = require('dotenv');
+const { VaultReader } = require('../obsidian/reader/index');
+const { VaultReader } = require('../obsidian/reader/index');
 
 dotenv.config();
 

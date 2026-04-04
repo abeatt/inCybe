@@ -1,0 +1,11 @@
+{
+  "id": "incybe-client",
+  "name": "inCybe",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Local RAG intelligence grounded in your vault.",
+  "author": "Giblets Creations",
+  "authorUrl": "https://github.com/giblets-creations",
+  "isDesktopOnly": false,
+  "pluginId": "incybe-client"
+}
