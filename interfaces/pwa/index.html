@@ -1,28 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a0a" />
-    <meta name="msapplication-TileColor" content="#0a0a0a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <title>inCybe | knowledge forged</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inCybe // Industrial Dark Chrome Test</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-[#0a0a0a] text-[#e0e0e0] overflow-hidden">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Rajdhani:wght@400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./theme.css">
+</head>
+<body>
+    <div class="header-bar"></div>
+    
+    <div class="chat-container" id="chat-flow">
+        <h1 style="font-family: var(--font-header); text-transform: uppercase; letter-spacing: 4px; color: #fff; margin-bottom: 0;">Vault Intelligence</h1>
+        <div style="font-family: var(--font-mono); color: var(--accent-gold-solid); font-size: 0.7rem; margin-bottom: 2rem;">DECRYPTION_MODE: ACTIVE // AGENT_ID: INC-01</div>
+        
+        <!-- Mock User Message -->
+        <div class="message user">
+            <div class="message-label">[USER_QUERY]</div>
+            <div class="content">How does the Safe Write System protect my vault?</div>
+        </div>
+
+        <!-- Mock AI Response -->
+        <div class="message">
+            <div class="message-label">[AI_RESPONSE]</div>
+            <div class="content">
+                The Safe Write System (Milestone 2.1) ensures data integrity by creating versioned snapshots 
+                at <code>/vault/.incybe/history/</code> before any modification occurs.
+            </div>
+            <div class="source-citation">Source: PHASE-2.md [Line 45]</div>
+        </div>
+
+        <!-- Mock Edit Proposal (Phase 2.7 Stasis State) -->
+        <div class="message proposal-stasis">
+            <div class="message-label" style="color: #ff4444;">[INTERCEPTED_PROPOSAL]</div>
+            <div class="content">
+                Suggested update to frontmatter: Add <code>status: verified</code> to all active project notes.
+            </div>
+            <div style="margin-top: 10px;">
+                <button class="btn-primary" id="btn-approve">APPROVE</button>
+                <button class="btn-secondary" id="btn-reject" style="margin-left: 10px;">REJECT</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-hud">
+        <div class="input-wrapper">
+            <input type="text" id="user-input" class="chat-input" placeholder="ENTER QUERY OR COMMAND..." autocomplete="off">
+            <button class="btn-primary" id="btn-send">SEND</button>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+            <span>STATE: OPERATIONAL</span>
+            <span>MEMORY: 4.2GB / 12GB</span>
+            <span>VECTORS: 14,202 LOADED</span>
+        </div>
+    </div>
+
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .catch(err => console.log('Service Worker registration failed: ', err));
-        });
-      }
+        const approveBtn = document.getElementById('btn-approve');
+        const rejectBtn = document.getElementById('btn-reject');
+        const proposalBlock = document.querySelector('.proposal-stasis');
+        const sendBtn = document.getElementById('btn-send');
+        const userInput = document.getElementById('user-input');
+        const chatFlow = document.getElementById('chat-flow');
+
+        function appendMessage(content, type = 'user') {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type === 'user' ? 'user' : ''}`;
+            const label = type === 'user' ? '[USER_QUERY]' : '[AI_RESPONSE]';
+            
+            msgDiv.innerHTML = `
+                <div class="message-label">${label}</div>
+                <div class="content">${content}</div>
+            `;
+            
+            chatFlow.appendChild(msgDiv);
+            // Smooth scroll to the new message
+            msgDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        function handleSend() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            userInput.value = '';
+
+            // Simulate system processing with a "thinking" state
+            const thinkingId = 'thinking-' + Date.now();
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'message';
+            thinkingDiv.id = thinkingId;
+            thinkingDiv.innerHTML = `<div class="message-label" style="color: var(--text-muted)">[SYSTEM_THINKING...]</div>`;
+            chatFlow.appendChild(thinkingDiv);
+            thinkingDiv.scrollIntoView({ behavior: 'smooth' });
+
+            setTimeout(() => {
+                document.getElementById(thinkingId).remove();
+                appendMessage("ACKNOWLEDGED. PHASE 1 STATUS: 87.5% COMPLETE. PENDING MILESTONE 1.8: OBSIDIAN_PLUGIN.", 'ai');
+            }, 1200);
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+
+        // Improved listener check
+        if (approveBtn) {
+            approveBtn.addEventListener('click', () => {
+                console.log("APPROVE: Creating snapshot in /.incybe/history/...");
+                proposalBlock.style.animation = 'none';
+                proposalBlock.style.borderColor = 'var(--accent-gold-solid)';
+                proposalBlock.style.background = 'rgba(191, 149, 63, 0.1)';
+                proposalBlock.querySelector('.message-label').innerText = '[PROPOSAL_APPLIED]';
+                proposalBlock.querySelector('.message-label').style.color = 'var(--accent-gold-solid)';
+                approveBtn.parentElement.innerHTML = '<span style="font-family: var(--font-mono); font-size: 0.8rem; color: #888;">COMMIT SUCCESSFUL</span>';
+            });
+        }
+
+        if (rejectBtn) {
+            rejectBtn.addEventListener('click', () => {
+                if (confirm('Discard this proposal? Content will not be modified.')) {
+                    proposalBlock.style.opacity = '0';
+                    setTimeout(() => proposalBlock.remove(), 300);
+                }
+            });
+        }
     </script>
-  </body>
+</body>
 </html>

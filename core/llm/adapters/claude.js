@@ -1,6 +1,6 @@
-const LLMProvider = require('../provider');
+import LLMProvider from '../provider.js';
 
-class ClaudeProvider extends LLMProvider {
+export default class ClaudeProvider extends LLMProvider {
   async complete(prompt, options = {}) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     const endpoint = process.env.LEGION_CLAUDE_ENDPOINT || 'https://api.anthropic.com/v1/messages';
@@ -41,5 +41,3 @@ class ClaudeProvider extends LLMProvider {
     }
   }
 }
-
-module.exports = ClaudeProvider;

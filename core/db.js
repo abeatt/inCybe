@@ -66,7 +66,8 @@ async function deleteDocument(filePath) {
   const table = await db.openTable('documents');
   // Escape single quotes for SQL-like filter
   const safePath = filePath.replace(/'/g, "''");
-  await table.delete(`path = '${safePath}'`);
+  // Use case-insensitive comparison for Windows path safety
+  await table.delete(`lower(path) = '${safePath.toLowerCase()}'`);
 }
 
 /**
@@ -82,7 +83,8 @@ async function getAssetRegistry() {
     const results = await table.query().select(['path', 'checksum']).limit(100000).toArray();
     
     const registry = new Map();
-    results.forEach(r => registry.set(r.path, r.checksum));
+    // Normalize keys to lowercase to handle Windows path casing consistently
+    results.forEach(r => registry.set(r.path.toLowerCase(), r.checksum));
     return registry;
   } catch (err) {
     console.warn('⚠️  Old DB schema detected (missing checksum). Resetting index...');
@@ -101,12 +103,18 @@ async function getStats() {
   }
 
   const table = await db.openTable('documents');
-  const all = await table.query().select(['path', 'updated_at']).toArray();
   
-  const uniquePaths = new Set(all.map(r => r.path));
-  const lastSync = all.length > 0 ? new Date(Math.max(...all.map(r => new Date(r.updated_at).getTime()))).toISOString() : null;
+  // Push aggregation to the native layer. This avoids transferring 
+  // and processing thousands of rows in the JavaScript heap.
+  const results = await table.query()
+    .select(['count(DISTINCT path) as docCount', 'max(updated_at) as lastSync'])
+    .toArray();
 
-  return { docCount: uniquePaths.size, lastSync };
+  const stats = results[0] || {};
+  return { 
+    docCount: stats.docCount ? Number(stats.docCount) : 0, 
+    lastSync: stats.lastSync ? new Date(stats.lastSync).toISOString() : null 
+  };
 }
 
 export {

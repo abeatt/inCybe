@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .gold-gradient-text {
+    @apply bg-gradient-to-r from-[#bf953f] via-[#fcf6ba] to-[#b38728] bg-clip-text text-transparent font-heading uppercase tracking-widest;
+  }
+  .chrome-card {
+    @apply bg-[#151515] border border-[#222] shadow-[0_0_15px_rgba(0,0,0,0.5)];
+  }
+}

@@ -62,7 +62,7 @@ app.get('/api/stats', async (req, res) => {
 });
 
 // POST /reindex - triggers manual full re-index
-app.post('/reindex', async (req, res) => {
+app.post('/api/reindex', async (req, res) => {
   try {
     // Run in background but acknowledge receipt
     runIndexer().catch(err => console.error('Background Indexing Error:', err));
@@ -73,7 +73,7 @@ app.post('/reindex', async (req, res) => {
 });
 
 // GET /search?q= - raw semantic search, no LLM, returns top-K chunks
-app.get('/search', async (req, res) => {
+app.get('/api/search', async (req, res) => {
   try {
     const query = req.query.q;
     const k = parseInt(req.query.k) || 5;

@@ -1,0 +1,17 @@
+01/04/26 - make sure to connect incybe/docs/phase folder repo, github with the website
+
+have the video as a static image until the user scrols past a certian point on the page
+Ask gemini to create a legal document to cover your work and then ask it to create a html and include it in my index
+make movile freidnly, so images are dynamic
+
+13/04/2026
+Step 1: Convert the text into an image
+Open your index.html file and copy the massive block of text inside the src="" attribute. You want to copy everything after the comma: data:image/jpeg;base64, (the text you copy should start with /9j/4AA...).
+Go to a free, secure online tool like Base64.guru or CodeBeautify.
+Paste the copied text into the input box and click Decode / Convert.
+Download the resulting image file and save it as logo.jpg inside your new images/ folder.
+Step 2: Update your HTML
+Now you can delete those giant walls of text and replace them with a simple, clean file path.
+
+future dev
+make 01.1-01.3 background egyptian cotton

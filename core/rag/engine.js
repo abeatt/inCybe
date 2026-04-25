@@ -34,7 +34,7 @@ class RAGEngine {
     if (!embedding) throw new Error("Failed to generate embedding");
 
     const table = await this._getTable();
-    return await table.search(embedding).limit(k).execute();
+    return await table.vectorSearch(embedding).limit(k).toArray();
   }
 
   /**
@@ -56,9 +56,9 @@ class RAGEngine {
     const table = await this._getTable();
     
     const results = await table
-      .search(embedding)
+      .vectorSearch(embedding)
       .limit(k)
-      .execute();
+      .toArray();
 
     // 2. Graceful fallback for 'No relevant content found'
     if (!results || results.length === 0) {

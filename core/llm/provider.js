@@ -1,7 +1,7 @@
 /**
  * Base LLM Provider Interface
  */
-class LLMProvider {
+export default class LLMProvider {
   constructor(config = {}) {
     this.config = config;
   }
@@ -20,5 +20,3 @@ class LLMProvider {
     console.log(`[LLM USAGE] ${new Date().toISOString()} - Prompt: ${usage.promptTokens}, Completion: ${usage.completionTokens}, Total: ${usage.totalTokens}`);
   }
 }
-
-module.exports = LLMProvider;

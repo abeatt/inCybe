@@ -1,6 +1,6 @@
-const LLMProvider = require('../provider');
+import LLMProvider from '../provider.js';
 
-class OpenAIProvider extends LLMProvider {
+export default class OpenAIProvider extends LLMProvider {
   async complete(prompt, options = {}) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error('OPENAI_API_KEY is missing');
@@ -35,4 +35,3 @@ class OpenAIProvider extends LLMProvider {
     return { text: data.choices[0].message.content, usage };
   }
 }
-module.exports = OpenAIProvider;

@@ -26,10 +26,9 @@ module.exports = {
     },
     {
       name: 'incybe-pwa',
-      script: 'npm.cmd',
-      args: 'run dev -- --host',
-      cwd: path.join(__dirname, 'interfaces/pwa'),
-      shell: true, // Required for npm on Windows
+      script: 'node_modules/vite/bin/vite.js',
+      args: 'interfaces/pwa --host',
+      cwd: __dirname,
       watch: false,
     }
   ]

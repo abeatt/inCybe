@@ -1,0 +1,10 @@
+{
+  "id": "incybe",
+  "name": "inCybe",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Local AI-native OS layer for Obsidian.",
+  "author": "Giblets Creations",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}

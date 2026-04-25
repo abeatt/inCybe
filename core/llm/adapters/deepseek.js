@@ -1,6 +1,6 @@
-const LLMProvider = require('../provider');
+import LLMProvider from '../provider.js';
 
-class DeepSeekProvider extends LLMProvider {
+export default class DeepSeekProvider extends LLMProvider {
   async complete(prompt, options = {}) {
     const apiKey = process.env.DEEPSEEK_API_KEY;
     if (!apiKey) throw new Error('DEEPSEEK_API_KEY is missing');
@@ -32,4 +32,3 @@ class DeepSeekProvider extends LLMProvider {
     return { text: data.choices[0].message.content, usage };
   }
 }
-module.exports = DeepSeekProvider;

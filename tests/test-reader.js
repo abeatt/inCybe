@@ -1,32 +1,23 @@
-const dotenv = require('dotenv');
-const { VaultReader } = require('../interfaces/server/index');
+import { VaultReader } from '../obsidian/reader/index.js';
+import path from 'path';
+import 'dotenv/config';
 
-// Load environment variables (for VAULT_PATH)
-dotenv.config();
+async function testReader() {
+  console.log('🔍 Testing Vault Reader...');
+  const vaultPath = process.env.VAULT_PATH;
 
-const vaultPath = process.env.VAULT_PATH;
+  if (!vaultPath) {
+    console.error('❌ VAULT_PATH not set in .env');
+    process.exit(1);
+  }
 
-if (!vaultPath) {
-  console.error('❌ Error: VAULT_PATH is not defined in .env');
-  console.error('Please set VAULT_PATH=C:\\Path\\To\\Your\\Vault in your .env file.');
-  process.exit(1);
-}
-
-async function runTest() {
-  console.log('🧪 Starting Vault Reader Test...');
   const reader = new VaultReader(vaultPath);
-
-  const start = Date.now();
   const docs = await reader.indexFullVault();
-  const duration = (Date.now() - start) / 1000;
-
-  console.log(`\n✅ Indexing complete in ${duration}s`);
-  console.log(`📊 Processed ${docs.length} documents.`);
   
+  console.log(`✅ Scanned ${docs.length} documents.`);
   if (docs.length > 0) {
-    console.log('\n📄 Sample Document (First Result):');
-    console.log(JSON.stringify(docs[0], null, 2));
+    console.log('📄 Sample Frontmatter:', JSON.stringify(docs[0].frontmatter, null, 2));
   }
 }
 
-runTest();
+testReader().catch(console.error);

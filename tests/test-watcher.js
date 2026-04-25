@@ -1,8 +1,5 @@
-const dotenv = require('dotenv');
-const { VaultReader } = require('../obsidian/reader/index');
-const { VaultReader } = require('../obsidian/reader/index');
-
-dotenv.config();
+import 'dotenv/config';
+import { VaultReader } from '../obsidian/reader/index.js';
 
 const vaultPath = process.env.VAULT_PATH;
 

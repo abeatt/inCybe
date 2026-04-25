@@ -1,5 +1,5 @@
-require('dotenv').config();
-const { llm } = require('../index');
+import 'dotenv/config';
+import llm from '../core/llm/index.js';
 
 async function runTest() {
   console.log('🧪 Testing LLM Abstraction Layer...\n');
@@ -16,7 +16,7 @@ async function runTest() {
 
     console.log(`\n✅ Response received in ${duration}s:`);
     console.log('---------------------------------------------------');
-    console.log(response.trim());
+    console.log(response.text.trim());
     console.log('---------------------------------------------------');
   } catch (err) {
     console.error('\n❌ Test Failed:', err.message);

@@ -1,6 +1,6 @@
-const LLMProvider = require('../provider');
+import LLMProvider from '../provider.js';
 
-class OllamaProvider extends LLMProvider {
+export default class OllamaProvider extends LLMProvider {
   async complete(prompt, options = {}) {
     const baseUrl = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
     const model = process.env.OLLAMA_MODEL || 'llama3';
@@ -32,4 +32,3 @@ class OllamaProvider extends LLMProvider {
     return { text: data.response, usage };
   }
 }
-module.exports = OllamaProvider;

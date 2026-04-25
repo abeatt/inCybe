@@ -1,7 +1,8 @@
-const OllamaProvider = require('./adapters/ollama');
-const OpenAIProvider = require('./adapters/openai');
-const DeepSeekProvider = require('./adapters/deepseek');
-const ClaudeProvider = require('./adapters/claude');
+import 'dotenv/config';
+import OllamaProvider from './adapters/ollama.js';
+import OpenAIProvider from './adapters/openai.js';
+import DeepSeekProvider from './adapters/deepseek.js';
+import ClaudeProvider from './adapters/claude.js';
 
 class LLMManager {
   constructor() {
@@ -44,4 +45,4 @@ class LLMManager {
   }
 }
 
-module.exports = new LLMManager();
+export default new LLMManager();

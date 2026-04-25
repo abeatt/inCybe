@@ -5,6 +5,7 @@ import { getAssetRegistry } from './db.js';
 import { processDocument } from './processor.js';
 import { notify } from './notifier.js';
 import path from 'path';
+import { deleteDocument } from './db.js';
 import { fileURLToPath } from 'url';
 
 const VAULT_PATH = process.env.VAULT_PATH;
@@ -17,6 +18,14 @@ if (!VAULT_PATH) {
 async function runIndexer() {
   console.log('🚀 Starting Full Vault Index...');
   const start = Date.now();
+
+  // Support environment variable fallback as npm often intercepts CLI flags
+  // Standardize flag detection to bypass npm interception issues
+  const forceFlags = ['--fresh', '--rebuild', '--rebuild-bundle', '-f'];
+  const force = process.env.REINDEX === 'true' || forceFlags.some(flag => process.argv.includes(flag));
+
+
+  if (force) console.log('⚡ Force Mode: Active (Ignoring existing hashes)');
 
   // 1. Scan Vault
   const reader = new VaultReader(VAULT_PATH);
@@ -36,14 +45,28 @@ async function runIndexer() {
     const currentHash = crypto.createHash('md5').update(doc.content).digest('hex');
     doc.checksum = currentHash; // Attach for storage
 
-    if (registry.get(doc.path) !== currentHash) {
+    // Compare with registry (Normalize path for Windows case-insensitivity)
+    const existingHash = registry.get(doc.path.toLowerCase());
+    if (force || existingHash !== currentHash) {
       toProcess.push(doc);
     }
   }
 
   if (toProcess.length === 0) {
-    console.log('✅ Vault is up to date. No changes detected.');
+    console.log('✅ Vault is up to date. No changes detected. Use --fresh to re-index everything.');
     return;
+  }
+
+  // 3. Cleanup: Remove stale records (files that exist in DB but no longer on disk)
+  const diskPaths = new Set(docs.map(d => path.normalize(d.path).toLowerCase()));
+  const stalePaths = [...registry.keys()].filter(p => !diskPaths.has(path.normalize(p).toLowerCase()));
+
+  if (stalePaths.length > 0) {
+    console.log(`\n🧹 Cleaning up ${stalePaths.length} stale records...`);
+    for (const stale of stalePaths) {
+      await deleteDocument(stale);
+      console.log(`   Removed: ${path.basename(stale)}`);
+    }
   }
 
   console.log(`\n📄 Processing ${toProcess.length} new/modified files...`);
